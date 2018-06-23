@@ -18,8 +18,10 @@ var guesses = [];
 var correctGuesses = [];
 var wrongGuesses = [];
 var currentQuestion;
-var display = ''; 
+var displayString = ''; 
 var score = 0;
+
+var audio = new Audio("./assests/audio/RickandMorty.mp3");
 
 var ask = document.getElementById("ask");
 var section = document.getElementById("section");
@@ -36,15 +38,16 @@ function startUp() {
 
 function restart(){
 
-  
+    audio.pause();
     guessRemaining = 7;
     guesses = [];
     currentQuestion = startUp();
+    console.log(currentQuestion);
     display = '';
     score = 0;
     
 
-    for (var i = 0; i < currentQuestion.answer.length; i++){
+    for (i = 0; i < currentQuestion.answer.length; i++){
       if (currentQuestion.answer.charAt(i) !== " "){
          display += "_";
         //  guessRemaining += 1;
@@ -66,7 +69,7 @@ function restart(){
     var answer  = currentQuestion.answer.toLowerCase();
     // console.log(event.key);
    
-    for (var i = 0; i < guesses.length; i++) {
+    for (i = 0; i < guesses.length; i++) {
       
         if (guesses[i] === event.key) {
          
@@ -76,6 +79,7 @@ function restart(){
       }
       // console.log("Past duplicate check")
       guesses.push(event.key);
+      var tempstr = '';
       // console.log(guesses);
 
       console.log(answer, userGuess)
@@ -132,7 +136,24 @@ function restart(){
 
  }
 
+ for (i = 0; i < currentQuestion.question.length; i++) {
+  console.log("currentQuestion.question = " + currentPhrase.phrase);
+  console.log(currentQuestion.question.charAt(i).toUpperCase());
+  if (currentQuestion.question.charAt(i) !== " ") {
+      displayString += "_";
+      lettersToWinGame += 1;
+  }
+  else {
+      displayString += " ";
+  }
 }
+
+display.textContent = displayString;
+
+answer_display.textContent = currentQuestion.answer;
+
+}
+
 
 
 
